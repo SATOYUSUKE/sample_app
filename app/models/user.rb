@@ -7,5 +7,6 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, presence: true, length: {minimum: 6}
+  #maximumを使ってユーザー名の最大文字数を制限していましたが、これと似たような形式のminimumというオプションを使って、最小文字数のバリデーションを実装することができます。
+  validates :password, presence: true, length: { minimum: 6 }
 end
