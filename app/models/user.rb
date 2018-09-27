@@ -9,4 +9,11 @@ class User < ApplicationRecord
   has_secure_password
   #maximumを使ってユーザー名の最大文字数を制限していましたが、これと似たような形式のminimumというオプションを使って、最小文字数のバリデーションを実装することができます。
   validates :password, presence: true, length: { minimum: 6 }
+
+  # 渡された文字列のハッシュ値を返す
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 end
